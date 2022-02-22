@@ -7,7 +7,7 @@ export const getRobots = async (request: Request, response: Response) => {
     return response.json(robots)
 }
 
-export const saveRobot = async (request: Request, response: Response) => {
+export const createRobot = async (request: Request, response: Response) => {
     const robot = await getRepository(Robot).save(request.body)
     response.json(robot);
 }

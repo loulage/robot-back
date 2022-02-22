@@ -5,11 +5,11 @@ export class Robot {
   @PrimaryGeneratedColumn('increment')
   id: number;
   
-  @Column()
-  current_position: string;
+  @Column("text", {array: true})
+  current_position: string[];
 
-  @Column()
-  last_position: string;
+  @Column("text", {array: true})
+  last_position: string[];
 
   @CreateDateColumn()
   created_at: Date;
