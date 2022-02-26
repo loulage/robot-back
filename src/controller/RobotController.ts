@@ -7,7 +7,7 @@ import {
   listAllRobotsService,
   updateRobotPositionService,
 } from '../service/RobotService';
-import { moveRobot } from '../service/moveRobot';
+import { createCommandService } from '../service/CommandService';
 
 export const listRobots = async (_request: Request, response: Response) => {
   const robots = await listAllRobotsService();
@@ -34,10 +34,11 @@ export const createRobot = async (_request: Request, response: Response) => {
   return response.status(httpStatus.INTERNAL_ERROR).json({ message: 'Internal Server Error' });
 };
 
-export const updateRobotPosition = async (request: Request, response: Response) => {
-  const { id } = request.params;
-  // falta implementar a logica
-  const updatedRobot = await updateRobotPositionService(id, { someData: [] });
+export const updateRobotPositionToOrigin = async (request: Request, response: Response) => {
+  const { robotId } = request.body;
+  
+  await createCommandService('ORIGIN', robotId, true)
+  const updatedRobot = await updateRobotPositionService(robotId, { current_position: [0,0,'N'] });
   if (updatedRobot) {
     return response.status(httpStatus.OK).json(updatedRobot);
   }

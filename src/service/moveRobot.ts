@@ -1,25 +1,22 @@
 import { findRobotByIdService } from './RobotService';
 
-const verifyMovement = (robotPosition) => {
-  console.log('verify',robotPosition)
-  if ( robotPosition[0] < 0 || robotPosition[0] > 5 || robotPosition[1] < 0 || robotPosition[1] > 5){
+const verifyMovement = (robotPosition:(string | number)[]) : boolean => {
+  if ( robotPosition[0] < 0 || robotPosition[0] >= 5 || robotPosition[1] < 0 || robotPosition[1] >= 5){
     return false
   } else {
     return true
   }
 };
 
-export async function moveRobot(robotId, command) {
+export async function moveRobot(robotId: number, command: string) : Promise<(string | number)[] | boolean> {
   const directionWheel = ['N', 'E', 'S', 'W'];
 
   // M, L, R
   const robot = await findRobotByIdService(robotId);
 
-  console.log('robo antes de mover', robot)
-  const initialPostion = [+robot.current_position[0], +robot.current_position[1], robot.current_position[2]]
-  let robotX = +robot.current_position[0];
-  let robotY = +robot.current_position[1];
-  let robotDir = robot.current_position[2];
+  let robotX = +robot.current_position[0],
+    robotY = +robot.current_position[1],
+    robotDir = robot.current_position[2];
 
   let directionWheelIndex = directionWheel.indexOf(robotDir);
   const task = command.split('')
@@ -60,14 +57,13 @@ export async function moveRobot(robotId, command) {
         robotDir = directionWheel[directionWheelIndex]
     }
 
-    if (robotX < 0 || robotX > 5 || robotY < 0 || robotY > 5) return false
+    if (robotX < 0 || robotX >= 5 || robotY < 0 || robotY >= 5) return false
     else return true;
   });
 
   
   const robotNewPosition = [robotX, robotY, robotDir]
   const isRobotOk = verifyMovement(robotNewPosition)
-  console.log('robo depois de mover e is robot ok?', robotNewPosition, isRobotOk)
   if (isRobotOk) {
     return robotNewPosition
   } else {

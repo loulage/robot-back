@@ -3,7 +3,7 @@
    "host": "localhost",
    "port": 5432,
    "username": "postgres",
-   "password": "842708",
+   "password": "postgres",
    "database": "db_nasa",
    "synchronize": true,
    "logging": false,

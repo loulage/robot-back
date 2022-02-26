@@ -26,7 +26,6 @@ export async function listAllCommands (_request: Request, response: Response): P
 
     if (isUserInputAllowed) {
       const robot = await moveRobot(robotId, userInput)
-      console.log('dentro do controller, robo depois de mover', robot)
       if (robot) {
         await createCommandService(userInput, robotId, isUserInputAllowed)
         await updateRobotPositionService(robotId, {current_position: robot})

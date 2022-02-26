@@ -34,7 +34,6 @@ export async function listAllCommands(): Promise<ICommandDTO[]> {
   export async function createCommand(userInput: string, robotId: any, isValid: boolean): Promise<ICommandDTO> {
     try {
       const data = { command: userInput, is_valid: isValid, robot: robotId };
-      console.log('data do create command', data);
       const command = await getRepository(Command).save(data);
       return command;
     } catch (err) {
