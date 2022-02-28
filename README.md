@@ -7,5 +7,5 @@ Steps to run this project:
 
 1. Run `npm i` command
 2. Setup database settings inside `ormconfig.json` file
-3. create a database on your favorite DB manager (I used PGadmin4)
+3. Create a database on your favorite DB manager (I used PGadmin4)
 4. Run `npm start` command
