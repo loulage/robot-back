@@ -1,5 +1,9 @@
 export const verifyUserInput = (userInput) => {
-  const regex =   /\b[MRL]+\b(?![,])/
-  const isValid = regex.test(userInput)
-  return isValid;
+  if(userInput) {
+    
+    const regex =   /\b[MRL]+\b(?![,])/
+    const isValid = regex.test(userInput)
+    return isValid;
+  }
+  return false
 }

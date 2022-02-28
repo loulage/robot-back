@@ -16,8 +16,11 @@ export async function listAllCommands (_request: Request, response: Response): P
 }
 
  export async function createCommand (request: Request, response: Response): Promise<Response> {
+
+  try {
+
     const { userInput, robotId } = request.body
-    
+
     const isUserInputAllowed = verifyUserInput(userInput)
     if (!isUserInputAllowed) {
       await createCommandService(userInput, robotId, isUserInputAllowed);
@@ -32,7 +35,9 @@ export async function listAllCommands (_request: Request, response: Response): P
         const newRobotPosition = await findRobotByIdService(robotId)
         return response.status(httpStatus.CREATED).json(newRobotPosition); 
       }
-      return response.status(httpStatus.UNPROCESSABLE_ENTITY).json({ message: 'Robot Would Fall! Re-do Operation' }); 
     }
+  } catch {
+    return response.status(httpStatus.UNPROCESSABLE_ENTITY).json({ message: 'Robot Would Fall! Re-do Operation' }); 
+  }
   }
 

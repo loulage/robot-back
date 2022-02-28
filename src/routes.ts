@@ -34,7 +34,6 @@ export default routes;
  *      properties:
  *        id:
  *          type: integer
- *          description: auto generated ID of robots
  *        current_position:
  *          type: array
  *          description: array of string
@@ -47,6 +46,21 @@ export default routes;
  *        current_position: ['1', '3', 'N']
  *        created_at: 2022-02-25T20:40:02.551Z
  *        updated_at: 2022-02-25T21:00:59.068Z
+ *    Commands:
+ *      type: object
+ *      properties:
+ *        id:
+ *          type: integer
+ *        command:
+ *          type: string
+ *        is_valid:
+ *          type: boolean
+ *        robot:
+ *          type: Robot
+ *        created_at:
+ *          type: string
+ *        updated_at:
+ *          type: string
  */
 
 /**
@@ -142,6 +156,11 @@ export default routes;
  *  get:
  *    tags: [Command]
  *    summary: Use to request a list of all commands
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref '#/components/schemas/Command'
  *    responses:
  *      '200':
  *        description: A successful response
@@ -155,6 +174,18 @@ export default routes;
  *  post:
  *    tags: [Command]
  *    summary: Use to create a command that may move the robot.
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              userInput:
+ *                type: string
+ *                example: MMR
+ *              robotId:
+ *                type: integer
+ *                example: 1
  *    responses:
  *      '200':
  *        description: A successful response. Means that robot in application has moved successfully.
